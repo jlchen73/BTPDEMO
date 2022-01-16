@@ -37,9 +37,42 @@ modules:
       - group.zip
       name: group
       target-path: resources/
+    - artifacts:
+      - groups.zip
+      name: groups
+      target-path: resources/
 - name: group
   type: html5
   path: app/group
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: app
+  type: approuter.nodejs
+  path: app
+  requires:
+  - name: RISKDB_html_repo_runtime
+  - name: srv-api
+    group: destinations
+    properties:
+      name: srv-api
+      url: ~{srv-url}
+  - name: RISKDB-dest-srv
+    group: destinations
+    properties:
+      forwardAuthToken: false
+      name: ui5
+      url: https://ui5.sap.com
+  parameters:
+    disk-quota: 256M
+    memory: 256M
+- name: groups
+  type: html5
+  path: app/groups
   build-parameters:
     build-result: dist
     builder: custom
@@ -79,6 +112,11 @@ resources:
     service: destination
     service-name: RISKDB-dest-srv
     service-plan: lite
+- name: RISKDB_html_repo_runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true
