@@ -1,62 +1,90 @@
-## Generated mta.yaml based on template version 0.4.0
-## appName = RISKDB
-## language=nodejs; multitenant=false
-## approuter=
-_schema-version: '3.1'
+_schema-version: "3.1"
 ID: RISKDB
+description: A simple CAP project.
 version: 1.0.0
-description: "A simple CAP project."
+modules:
+- name: RISKDB-srv
+  type: nodejs
+  path: srv
+  requires:
+  - name: RISKDB-db
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+  build-parameters:
+    builder: npm-ci
+- name: RISKDB-db-deployer
+  type: hdb
+  path: db
+  requires:
+  - name: RISKDB-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: RISKDB-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: RISKDB-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - group.zip
+      name: group
+      target-path: resources/
+- name: group
+  type: html5
+  path: app/group
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: RISKDB-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+  properties:
+    hdi-service-name: ${service-name}
+- name: RISKDB-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: RISKDB-html5-srv
+    service-plan: app-host
+- name: RISKDB-dest-srv
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: RISKDB-dest-srv
+    service-plan: lite
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
-   
 build-parameters:
   before-all:
-   - builder: custom
-     commands:
-      - npm ci
-      - npx -p @sap/cds-dk cds build --production
-
-modules:
- # --------------------- SERVER MODULE ------------------------
- - name: RISKDB-srv
- # ------------------------------------------------------------
-   type: nodejs
-   path: srv
-   parameters:
-     buildpack: nodejs_buildpack
-   build-parameters:
-     builder: npm-ci
-   requires:
-    # Resources extracted from CAP configuration
-    - name: RISKDB-db
-   provides:
-    - name: srv-api      # required by consumers of CAP services (e.g. approuter)
-      properties:
-        srv-url: ${default-url}
-
- # -------------------- SIDECAR MODULE ------------------------
- - name: RISKDB-db-deployer
- # ------------------------------------------------------------
-   type: hdb
-   path: db  
-   parameters:
-     buildpack: nodejs_buildpack
-   requires:
-    # 'hana' and 'xsuaa' resources extracted from CAP configuration
-    - name: RISKDB-db
-
-
-resources:
- # services extracted from CAP configuration
- # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
-# ------------------------------------------------------------
- - name: RISKDB-db
-# ------------------------------------------------------------
-   type: com.sap.xs.hdi-container
-   parameters:
-     service: hana  # or 'hanatrial' on trial landscapes
-     service-plan: hdi-shared
-   properties:
-     hdi-service-name: ${service-name}
-
-
+  - builder: custom
+    commands:
+    - npm ci
+    - npx -p @sap/cds-dk cds build --production

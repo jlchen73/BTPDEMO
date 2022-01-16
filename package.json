@@ -11,10 +11,12 @@
         "hdb": "^0.18.3"
     },
     "devDependencies": {
+        "@sap/ux-specification": "^1.96.0",
         "sqlite3": "^5.0.2"
     },
     "scripts": {
-        "start": "cds run"
+        "start": "cds run",
+        "undeploy": "cf undeploy RISKDB --delete-services --delete-service-keys"
     },
     "eslintConfig": {
         "extends": "eslint:recommended",
