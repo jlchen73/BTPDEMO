@@ -1,10 +1,20 @@
 using risk from '../db/risk';
 service CatalogService {
 
- entity Groups
-	as projection on risk.Groups;
+ entity Groups @(
+     Capabilities: {
+         InsertRestrictions: {Insertable: true},
+         UpdateRestrictions: {Updatable: true},
+         DeleteRestrictions: {Deletable: true}    
+     }
+) as projection on risk.Groups;
 
- entity GroupAssign
-	as projection on  risk.GroupAssign;
+ entity GroupAssign @(
+     Capabilities: {
+         InsertRestrictions: {Insertable: true},
+         UpdateRestrictions: {Updatable: true},
+         DeleteRestrictions: {Deletable: true}    
+     }
+) as projection on  risk.GroupAssign;
 
 }

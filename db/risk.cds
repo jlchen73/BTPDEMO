@@ -24,5 +24,6 @@ entity GroupAssign {
 
 	key GroupID : association to Groups;
 	key CompanyCode : String(4);
+    value : Integer;
 
 };

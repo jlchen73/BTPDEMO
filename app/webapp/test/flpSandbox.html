@@ -3,8 +3,8 @@
 <!-- Copyright (c) 2015 SAP AG, All Rights Reserved -->
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{{appTitle}}</title>
 
 	<!-- Bootstrap the unified shell in sandbox mode for standalone usage.
@@ -43,10 +43,10 @@
 				}
 			},
 			applications: {
-				"groups-tile": { 
-					title: "Define Groups",
-					description: "Define Groups",
-					additionalInformation: "SAPUI5.Component=groups",
+				"test1-tile": {
+					title: "test1",
+					description: "test1",
+					additionalInformation: "SAPUI5.Component=test1",
 					applicationType: "URL",
 					url: "../"
 				}
@@ -54,21 +54,24 @@
 		};
 	</script>
 
-	<script src="https://ui5.sap.com/test-resources/sap/ushell/bootstrap/sandbox.js" id="sap-ushell-bootstrap"></script>
+	<script src="../test-resources/sap/ushell/bootstrap/sandbox.js" id="sap-ushell-bootstrap"></script>
 	<!-- Bootstrap the UI5 core library -->
 	<script id="sap-ui-bootstrap"
-		src="https://ui5.sap.com/resources/sap-ui-core.js"
-		data-sap-ui-libs="sap.m, sap.ushell, sap.fe.templates"
+		src="../resources/sap-ui-core.js"
+		data-sap-ui-libs="sap.m, sap.ushell, sap.ui.core, sap.f, sap.ui.comp, sap.ui.table, sap.suite.ui.generic.template, sap.ui.generic.app"
 		data-sap-ui-async="true"
 		data-sap-ui-preload="async"
-		data-sap-ui-theme="sap_fiori_3_dark"
+		data-sap-ui-theme="sap_fiori_3"
 		data-sap-ui-compatVersion="edge"
+		data-sap-ui-flexibilityServices='[{"applyConnector":"test1/test/changes_loader", "custom":true}]'
 		data-sap-ui-language="en"
-		data-sap-ui-resourceroots='{"groups": "../"}'
+		data-sap-ui-resourceroots='{"test1": "../"}'
 		data-sap-ui-frameOptions="allow"> // NON-SECURE setting for testing environment
 		</script>
-		<script src="../utils/locate-reuse-libs.js" data-sap-ui-manifest-uri="../manifest.json">
+		<script id="locate-reuse-libs" src="../utils/locate-reuse-libs.js" data-sap-ui-manifest-uri="../manifest.json">
 		</script>
+	<!-- relevant for version < 1.78.0 only -->
+	<script src="changes_preview.js"></script>
 </head>
 
 <!-- UI Content -->

@@ -41,6 +41,18 @@ modules:
       - groups.zip
       name: groups
       target-path: resources/
+    - artifacts:
+      - project1.zip
+      name: project1
+      target-path: resources/
+    - artifacts:
+      - groupassign.zip
+      name: groupassign
+      target-path: resources/
+    - artifacts:
+      - test1.zip
+      name: test1
+      target-path: resources/
 - name: group
   type: html5
   path: app/group
@@ -73,6 +85,36 @@ modules:
 - name: groups
   type: html5
   path: app/groups
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: project1
+  type: html5
+  path: app/project1
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: groupassign
+  type: html5
+  path: app/groupassign
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: test1
+  type: html5
+  path: test1
   build-parameters:
     build-result: dist
     builder: custom

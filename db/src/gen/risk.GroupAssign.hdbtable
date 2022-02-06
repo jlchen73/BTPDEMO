@@ -2,6 +2,7 @@
 COLUMN TABLE risk_GroupAssign (
   GroupID_GroupID INTEGER NOT NULL,
   CompanyCode NVARCHAR(4) NOT NULL,
+  value INTEGER,
   PRIMARY KEY(GroupID_GroupID, CompanyCode)
 ) WITH ASSOCIATIONS (
   MANY TO ONE JOIN risk_Groups AS GroupID ON (GroupID.GroupID = GroupID_GroupID)
