@@ -1,6 +1,6 @@
 specVersion: '2.4'
 metadata:
-  name: 'project1'
+  name: 'groups'
 type: application
 server:
   customMiddleware:
@@ -9,7 +9,7 @@ server:
     configuration:
       ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
       backend:
-      - path: /catalog
+      - path: /v2
         url: http://localhost:4004
       ui5:
         path: 
@@ -26,5 +26,5 @@ server:
   - name: fiori-tools-preview
     afterMiddleware: fiori-tools-appreload
     configuration:
-      component: project1
+      component: groups
       ui5Theme: sap_fiori_3

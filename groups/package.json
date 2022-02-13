@@ -1,5 +1,5 @@
 {
-    "name": "project1",
+    "name": "groups",
     "version": "0.0.1",
     "private": true,
     "sapux": true,
@@ -12,15 +12,14 @@
     ],
     "main": "webapp/index.html",
     "scripts": {
-        "start": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#project1-tile\"",
-        "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#project1-tile\"",
+        "start": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#groups-tile\"",
+        "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flpSandboxMockServer.html?sap-ui-xx-viewCache=false#groups-tile\"",
         "start-noflp": "fiori run --open \"index.html?sap-ui-xx-viewCache=false\"",
         "start-variants-management": "fiori run --open \"preview.html?sap-ui-xx-viewCache=false&fiori-tools-rta-mode=true&sap-ui-rta-skip-flex-validation=true#preview-app\"",
         "build": "ui5 build -a --clean-dest --include-task=generateManifestBundle generateCachebusterInfo",
         "deploy": "fiori verify",
         "deploy-config": "fiori add deploy-config",
-        "int-tests": "fiori run --config ./ui5-mock.yaml --open 'test/integration/opaTests.qunit.html'",
-        "start-mock": "fiori run --config ./ui5-mock.yaml --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#project1-tile\"",
+        "start-mock": "fiori run --open \"test/flpSandboxMockServer.html?sap-ui-xx-viewCache=false#groups-tile\"",
         "build:cf": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateManifestBundle generateCachebusterInfo"
     },
     "devDependencies": {
@@ -30,7 +29,6 @@
         "@sap/ux-ui5-tooling": "1",
         "rimraf": "3.0.2",
         "@sap/ux-specification": "latest",
-        "@sap/ux-ui5-fe-mockserver-middleware": "1",
         "@sap/ui5-builder-webide-extension": "^1.1.7",
         "ui5-task-zipper": "^0.3.1",
         "mbt": "^1.0.15"
@@ -38,7 +36,6 @@
     "ui5": {
         "dependencies": [
             "@sap/ux-ui5-tooling",
-            "@sap/ux-ui5-fe-mockserver-middleware",
             "@sap/ui5-builder-webide-extension",
             "ui5-task-zipper",
             "mbt"

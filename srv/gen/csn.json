@@ -149,6 +149,224 @@
         }
       }
     },
+    "risk.DailySchedule": {
+      "kind": "entity",
+      "includes": [
+        "managed"
+      ],
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "GroupID": {
+          "key": true,
+          "type": "cds.Association",
+          "target": "risk.Groups",
+          "keys": [
+            {
+              "ref": [
+                "GroupID"
+              ]
+            }
+          ]
+        },
+        "SnapshotDate": {
+          "key": true,
+          "type": "cds.Date"
+        },
+        "LocalCutOffDate": {
+          "type": "cds.Date"
+        },
+        "LocalCutOffTime": {
+          "type": "cds.Time"
+        },
+        "CutOffUTCTimestamp": {
+          "type": "cds.Timestamp"
+        },
+        "RunSnapshot": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "Reportable": {
+          "type": "cds.String",
+          "length": 1
+        }
+      }
+    },
+    "risk.SnapshotHeader": {
+      "kind": "entity",
+      "includes": [
+        "managed"
+      ],
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "SnapshotID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "Snapshot_Date": {
+          "type": "cds.Date"
+        },
+        "GroupID": {
+          "type": "cds.Association",
+          "target": "risk.Groups",
+          "keys": [
+            {
+              "ref": [
+                "GroupID"
+              ]
+            }
+          ]
+        },
+        "RunType_ID": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "RerollDate": {
+          "type": "cds.Date"
+        },
+        "Run_Start_UTC_TimeStamp": {
+          "type": "cds.Timestamp"
+        },
+        "Run_End_UTC_TimeStamp": {
+          "type": "cds.Timestamp"
+        },
+        "Duration": {
+          "type": "cds.Decimal"
+        },
+        "Record_CT": {
+          "type": "cds.Integer"
+        },
+        "Active": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "Display": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "Retain": {
+          "type": "cds.String",
+          "length": 1
+        }
+      }
+    },
     "CatalogService": {
       "@source": "risk_srv.cds",
       "kind": "service"
@@ -158,6 +376,198 @@
       "@Capabilities.InsertRestrictions.Insertable": true,
       "@Capabilities.UpdateRestrictions.Updatable": true,
       "@Capabilities.DeleteRestrictions.Deletable": true,
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "GroupID",
+          "Value": {
+            "=": "GroupID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "GroupName",
+          "Value": {
+            "=": "GroupName"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "TimeZone",
+          "Value": {
+            "=": "TimeZone"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "LocalCutTime",
+          "Value": {
+            "=": "LocalCutTime"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "LocalCutTimeOffsetDays",
+          "Value": {
+            "=": "LocalCutTimeOffsetDays"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTFlag",
+          "Value": {
+            "=": "INTFlag"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTOnHoliday",
+          "Value": {
+            "=": "INTOnHoliday"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTStartTime",
+          "Value": {
+            "=": "INTStartTime"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTStartOffsetDays",
+          "Value": {
+            "=": "INTStartOffsetDays"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTEndTime",
+          "Value": {
+            "=": "INTEndTime"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTEndOffsetDays",
+          "Value": {
+            "=": "INTEndOffsetDays"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTFrequency",
+          "Value": {
+            "=": "INTFrequency"
+          }
+        }
+      ],
+      "@SelectionFields": [
+        {
+          "=": "GroupID"
+        },
+        {
+          "=": "GroupName"
+        },
+        {
+          "=": "INTFlag"
+        }
+      ],
+      "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#GeneratedGroup1.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Label": "GroupID",
+          "Value": {
+            "=": "GroupID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "GroupName",
+          "Value": {
+            "=": "GroupName"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "TimeZone",
+          "Value": {
+            "=": "TimeZone"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "LocalCutTime",
+          "Value": {
+            "=": "LocalCutTime"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "LocalCutTimeOffsetDays",
+          "Value": {
+            "=": "LocalCutTimeOffsetDays"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTFlag",
+          "Value": {
+            "=": "INTFlag"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTOnHoliday",
+          "Value": {
+            "=": "INTOnHoliday"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTStartTime",
+          "Value": {
+            "=": "INTStartTime"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTStartOffsetDays",
+          "Value": {
+            "=": "INTStartOffsetDays"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTEndTime",
+          "Value": {
+            "=": "INTEndTime"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTEndOffsetDays",
+          "Value": {
+            "=": "INTEndOffsetDays"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "INTFrequency",
+          "Value": {
+            "=": "INTFrequency"
+          }
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "ID": "GeneratedFacet1",
+          "Label": "Snapshot Group",
+          "Target": "@UI.FieldGroup#GeneratedGroup1"
+        }
+      ],
       "projection": {
         "from": {
           "ref": [
@@ -277,7 +687,7 @@
       "@UI.LineItem": [
         {
           "$Type": "UI.DataField",
-          "Label": "GroupID_GroupID",
+          "Label": "GroupID",
           "Value": {
             "=": "GroupID_GroupID"
           }
@@ -295,6 +705,14 @@
           "Value": {
             "=": "value"
           }
+        }
+      ],
+      "@SelectionFields": [
+        {
+          "=": "GroupID_GroupID"
+        },
+        {
+          "=": "CompanyCode"
         }
       ],
       "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
@@ -325,7 +743,7 @@
         {
           "$Type": "UI.ReferenceFacet",
           "ID": "GeneratedFacet1",
-          "Label": "General Information",
+          "Label": "Group Assignment",
           "Target": "@UI.FieldGroup#GeneratedGroup1"
         }
       ],

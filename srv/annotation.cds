@@ -4,7 +4,7 @@ annotate service.GroupAssign with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Label : 'GroupID_GroupID',
+            Label : 'GroupID',
             Value : GroupID_GroupID,
         },
         {
@@ -17,7 +17,11 @@ annotate service.GroupAssign with @(
             Label : 'value',
             Value : value,
         },
-    ]
+    ],
+    SelectionFields : [
+    GroupID_GroupID,
+    CompanyCode
+],
 );
 
 annotate service.GroupAssign with @(
@@ -57,7 +61,7 @@ annotate service.GroupAssign with @(
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'GeneratedFacet1',
-            Label : 'General Information',
+            Label : 'Group Assignment',
             Target : '@UI.FieldGroup#GeneratedGroup1',
         },
     ]
@@ -67,8 +71,8 @@ annotate service.Groups with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Label : 'GroupID_GroupID',
-            Value : GroupID_GroupID,
+            Label : 'GroupID',
+            Value : GroupID,
         },
         {
             $Type : 'UI.DataField',
@@ -95,6 +99,41 @@ annotate service.Groups with @(
             Label : 'INTFlag',
             Value : INTFlag,
         },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTOnHoliday',
+            Value : INTOnHoliday,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTStartTime',
+            Value : INTStartTime,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTStartOffsetDays',
+            Value : INTStartOffsetDays,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTEndTime',
+            Value : INTEndTime,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTEndOffsetDays',
+            Value : INTEndOffsetDays,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTFrequency',
+            Value : INTFrequency,
+        },
+    ],
+    SelectionFields : [
+    GroupID,
+    GroupName,
+    INTFlag
     ]
 );
 
@@ -116,8 +155,8 @@ annotate service.Groups with @(
         Data : [
         {
             $Type : 'UI.DataField',
-            Label : 'GroupID_GroupID',
-            Value : GroupID_GroupID,
+            Label : 'GroupID',
+            Value : GroupID,
         },
         {
             $Type : 'UI.DataField',
@@ -144,13 +183,43 @@ annotate service.Groups with @(
             Label : 'INTFlag',
             Value : INTFlag,
         },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTOnHoliday',
+            Value : INTOnHoliday,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTStartTime',
+            Value : INTStartTime,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTStartOffsetDays',
+            Value : INTStartOffsetDays,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTEndTime',
+            Value : INTEndTime,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTEndOffsetDays',
+            Value : INTEndOffsetDays,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'INTFrequency',
+            Value : INTFrequency,
+        },
         ],
     },
     UI.Facets : [
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'GeneratedFacet1',
-            Label : 'General Information',
+            Label : 'Snapshot Group',
             Target : '@UI.FieldGroup#GeneratedGroup1',
         },
     ]

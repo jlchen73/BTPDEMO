@@ -1,7 +1,5 @@
-sap.ui.define(["sap/fe/core/AppComponent"], function(AppComponent) {
-    "use strict";
-
-    return AppComponent.extend("project1.Component", {
+sap.ui.define(["sap/suite/ui/generic/template/lib/AppComponent"], function(AppComponent) {
+    return AppComponent.extend("groups.Component", {
         metadata: {
             manifest: "json"
         }

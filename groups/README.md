@@ -1,14 +1,14 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Sun Feb 06 2022 02:26:04 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Sun Feb 06 2022 03:23:12 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori|
 |**App Generator Version**<br>1.4.7|
 |**Generation Platform**<br>SAP Business Application Studio|
-|**Floorplan Used**<br>List Report Object Page V4|
+|**Floorplan Used**<br>List Report Object Page V2|
 |**Service Type**<br>OData Url|
-|**Service URL**<br>http://localhost:4004/catalog/
-|**Module Name**<br>project1|
+|**Service URL**<br>http://localhost:4004/v2/catalog/
+|**Module Name**<br>groups|
 |**Application Title**<br>Snapshot Groups|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_fiori_3|
@@ -18,7 +18,7 @@
 |**Enable Telemetry**<br>True|
 |**Main Entity**<br>Groups|
 
-## project1
+## groups
 
 Snapshot Groups
 
@@ -28,12 +28,6 @@ Snapshot Groups
 
 ```
     npm start
-```
-
-- It is also possible to run the application using mock data that reflects the OData Service URL supplied during application generation.  In order to run the application with Mock Data, run the following from the generated app root folder:
-
-```
-    npm run start-mock
 ```
 
 #### Pre-requisites:

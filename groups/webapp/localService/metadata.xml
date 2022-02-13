@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
-    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
     </edmx:Reference>
-    <edmx:DataServices>
-        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-            <EntityContainer Name="EntityContainer">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="CatalogService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
                 <EntitySet Name="Groups" EntityType="CatalogService.Groups"/>
-                <EntitySet Name="GroupAssign" EntityType="CatalogService.GroupAssign">
-                    <NavigationPropertyBinding Path="GroupID" Target="Groups"/>
-                </EntitySet>
+                <EntitySet Name="GroupAssign" EntityType="CatalogService.GroupAssign"/>
+                <AssociationSet Name="GroupAssign_GroupID" Association="CatalogService.GroupAssign_GroupID">
+                    <End Role="GroupAssign" EntitySet="GroupAssign"/>
+                    <End Role="Groups" EntitySet="Groups"/>
+                </AssociationSet>
             </EntityContainer>
             <EntityType Name="Groups">
                 <Key>
@@ -31,13 +33,13 @@
                 <Property Name="GroupID" Type="Edm.Int32" Nullable="false"/>
                 <Property Name="GroupName" Type="Edm.String" MaxLength="100"/>
                 <Property Name="TimeZone" Type="Edm.String" MaxLength="6"/>
-                <Property Name="LocalCutTime" Type="Edm.TimeOfDay"/>
+                <Property Name="LocalCutTime" Type="Edm.Time"/>
                 <Property Name="LocalCutTimeOffsetDays" Type="Edm.Int32"/>
                 <Property Name="INTFlag" Type="Edm.String" MaxLength="1"/>
                 <Property Name="INTOnHoliday" Type="Edm.String" MaxLength="1"/>
-                <Property Name="INTStartTime" Type="Edm.TimeOfDay"/>
+                <Property Name="INTStartTime" Type="Edm.Time"/>
                 <Property Name="INTStartOffsetDays" Type="Edm.Int32"/>
-                <Property Name="INTEndTime" Type="Edm.TimeOfDay"/>
+                <Property Name="INTEndTime" Type="Edm.Time"/>
                 <Property Name="INTEndOffsetDays" Type="Edm.Int32"/>
                 <Property Name="INTFrequency" Type="Edm.Int32"/>
             </EntityType>
@@ -46,14 +48,110 @@
                     <PropertyRef Name="GroupID_GroupID"/>
                     <PropertyRef Name="CompanyCode"/>
                 </Key>
-                <NavigationProperty Name="GroupID" Type="CatalogService.Groups">
-                    <ReferentialConstraint Property="GroupID_GroupID" ReferencedProperty="GroupID"/>
-                </NavigationProperty>
+                <NavigationProperty Name="GroupID" Relationship="CatalogService.GroupAssign_GroupID" FromRole="GroupAssign" ToRole="Groups"/>
                 <Property Name="GroupID_GroupID" Type="Edm.Int32" Nullable="false"/>
                 <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" Nullable="false"/>
                 <Property Name="value" Type="Edm.Int32"/>
             </EntityType>
-            <Annotations Target="CatalogService.Groups">
+            <Association Name="GroupAssign_GroupID">
+                <End Role="GroupAssign" Type="CatalogService.GroupAssign" Multiplicity="*"/>
+                <End Role="Groups" Type="CatalogService.Groups" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Groups">
+                        <PropertyRef Name="GroupID"/>
+                    </Principal>
+                    <Dependent Role="GroupAssign">
+                        <PropertyRef Name="GroupID_GroupID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Annotations Target="CatalogService.Groups" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="GroupID_GroupID"/>
+                            <PropertyValue Property="Value" Path="GroupID_GroupID"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="GroupName"/>
+                            <PropertyValue Property="Value" Path="GroupName"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="TimeZone"/>
+                            <PropertyValue Property="Value" Path="TimeZone"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="LocalCutTime"/>
+                            <PropertyValue Property="Value" Path="LocalCutTime"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="LocalCutTimeOffsetDays"/>
+                            <PropertyValue Property="Value" Path="LocalCutTimeOffsetDays"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="INTFlag"/>
+                            <PropertyValue Property="Value" Path="INTFlag"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup1">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="GroupID_GroupID"/>
+                                    <PropertyValue Property="Value" Path="GroupID_GroupID"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="GroupName"/>
+                                    <PropertyValue Property="Value" Path="GroupName"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="TimeZone"/>
+                                    <PropertyValue Property="Value" Path="TimeZone"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="LocalCutTime"/>
+                                    <PropertyValue Property="Value" Path="LocalCutTime"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="LocalCutTimeOffsetDays"/>
+                                    <PropertyValue Property="Value" Path="LocalCutTimeOffsetDays"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="INTFlag"/>
+                                    <PropertyValue Property="Value" Path="INTFlag"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="GeneratedFacet1"/>
+                            <PropertyValue Property="Label" String="General Information"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup1"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Groups" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Capabilities.InsertRestrictions">
                     <Record Type="Capabilities.InsertRestrictionsType">
                         <PropertyValue Property="Insertable" Bool="true"/>
@@ -70,48 +168,31 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="CatalogService.EntityContainer/Groups">
-                <Annotation Term="Capabilities.InsertRestrictions">
-                    <Record Type="Capabilities.InsertRestrictionsType">
-                        <PropertyValue Property="Insertable" Bool="true"/>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.UpdateRestrictions">
-                    <Record Type="Capabilities.UpdateRestrictionsType">
-                        <PropertyValue Property="Updatable" Bool="true"/>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.DeleteRestrictions">
-                    <Record Type="Capabilities.DeleteRestrictionsType">
-                        <PropertyValue Property="Deletable" Bool="true"/>
-                    </Record>
-                </Annotation>
-            </Annotations>
-            <Annotations Target="CatalogService.Groups/createdAt">
+            <Annotations Target="CatalogService.Groups/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Immutable" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Created On"/>
             </Annotations>
-            <Annotations Target="CatalogService.Groups/createdBy">
+            <Annotations Target="CatalogService.Groups/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Immutable" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Core.Description" String="User's unique ID"/>
                 <Annotation Term="Common.Label" String="Created By"/>
             </Annotations>
-            <Annotations Target="CatalogService.Groups/modifiedAt">
+            <Annotations Target="CatalogService.Groups/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Changed On"/>
             </Annotations>
-            <Annotations Target="CatalogService.Groups/modifiedBy">
+            <Annotations Target="CatalogService.Groups/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Core.Description" String="User's unique ID"/>
                 <Annotation Term="Common.Label" String="Changed By"/>
             </Annotations>
-            <Annotations Target="CatalogService.GroupAssign">
+            <Annotations Target="CatalogService.GroupAssign" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Capabilities.InsertRestrictions">
                     <Record Type="Capabilities.InsertRestrictionsType">
                         <PropertyValue Property="Insertable" Bool="true"/>
@@ -173,7 +254,7 @@
                     </Collection>
                 </Annotation>
             </Annotations>
-            <Annotations Target="CatalogService.EntityContainer/GroupAssign">
+            <Annotations Target="CatalogService.EntityContainer/GroupAssign" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Capabilities.InsertRestrictions">
                     <Record Type="Capabilities.InsertRestrictionsType">
                         <PropertyValue Property="Insertable" Bool="true"/>
