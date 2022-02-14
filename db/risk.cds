@@ -24,7 +24,6 @@ entity GroupAssign {
 
 	key GroupID : association to Groups;
 	key CompanyCode : String(4);
-    value : Integer;
 };
 
 entity DailySchedule: managed {
@@ -50,4 +49,9 @@ entity SnapshotHeader: managed {
         Active: String(1);
         Display: String(1);
         Retain: String(1);
+};
+
+entity Settings {
+    key SettingName: String(40);
+        SettingValue: String(100);
 }

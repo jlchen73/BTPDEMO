@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "test1",
+        "id": "dailyschedule",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -65,7 +65,7 @@
             "css": []
         },
         "dependencies": {
-            "minUI5Version": "1.97.2",
+            "minUI5Version": "1.98.0",
             "libs": {
                 "sap.ui.core": {
                     "lazy": false
@@ -87,18 +87,6 @@
             "@i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "uri": "i18n/i18n.properties"
-            },
-            "i18n|sap.suite.ui.generic.template.ListReport|GroupAssign": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "uri": "i18n/ListReport/GroupAssign/i18n.properties"
-            },
-            "i18n|sap.suite.ui.generic.template.ObjectPage|GroupAssign": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "uri": "i18n/ObjectPage/GroupAssign/i18n.properties"
-            },
-            "i18n|sap.suite.ui.generic.template.ObjectPage|Groups": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "uri": "i18n/ObjectPage/Groups/i18n.properties"
             },
             "": {
                 "dataSource": "mainService",
@@ -134,8 +122,8 @@
             "showDraftToggle": false
         },
         "pages": {
-            "ListReport|GroupAssign": {
-                "entitySet": "GroupAssign",
+            "ListReport|DailySchedule": {
+                "entitySet": "DailySchedule",
                 "component": {
                     "name": "sap.suite.ui.generic.template.ListReport",
                     "list": true,
@@ -154,21 +142,11 @@
                     }
                 },
                 "pages": {
-                    "ObjectPage|GroupAssign": {
-                        "entitySet": "GroupAssign",
+                    "ObjectPage|DailySchedule": {
+                        "entitySet": "DailySchedule",
                         "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
                         "component": {
                             "name": "sap.suite.ui.generic.template.ObjectPage"
-                        },
-                        "pages": {
-                            "ObjectPage|GroupID": {
-                                "navigationProperty": "GroupID",
-                                "entitySet": "Groups",
-                                "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
-                                "component": {
-                                    "name": "sap.suite.ui.generic.template.ObjectPage"
-                                }
-                            }
                         }
                     }
                 }

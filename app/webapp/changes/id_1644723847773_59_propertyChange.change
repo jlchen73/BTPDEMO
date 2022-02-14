@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1644723847773_59_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "test1",
+    "packageName": "",
+    "content": {
+        "property": "showFilterConfiguration",
+        "newValue": true
+    },
+    "selector": {
+        "id": "test1::sap.suite.ui.generic.template.ListReport.view.ListReport::GroupAssign--listReportFilter",
+        "idIsLocal": false,
+        "type": "sap.ui.comp.smartfilterbar.SmartFilterBar"
+    },
+    "layer": "CUSTOMER_BASE",
+    "texts": {},
+    "namespace": "apps/test1/changes/",
+    "projectId": "test1",
+    "creation": 1644723847773,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "1.97.2",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "1.0.0",
+        "to": "1.0.0",
+        "creation": "1.0.0"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}
