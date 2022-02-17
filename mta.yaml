@@ -57,6 +57,14 @@ modules:
       - dailyschedule.zip
       name: dailyschedule
       target-path: resources/
+    - artifacts:
+      - jobmonitor.zip
+      name: jobmonitor
+      target-path: resources/
+    - artifacts:
+      - runsnapshot.zip
+      name: runsnapshot
+      target-path: resources/
 - name: group
   type: html5
   path: app/group
@@ -129,6 +137,26 @@ modules:
 - name: dailyschedule
   type: html5
   path: dailyschedule
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: jobmonitor
+  type: html5
+  path: jobmonitor
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: runsnapshot
+  type: html5
+  path: runsnapshot
   build-parameters:
     build-result: dist
     builder: custom

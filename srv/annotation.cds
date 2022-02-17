@@ -5,7 +5,12 @@ annotate service.GroupAssign with @(
         {
             $Type : 'UI.DataField',
             Label : 'GroupID',
-            Value : GroupID_GroupID,
+            Value : GroupID.GroupID,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'GroupName',
+            Value : GroupID.GroupName,
         },
         {
             $Type : 'UI.DataField',
@@ -13,7 +18,7 @@ annotate service.GroupAssign with @(
             Value : CompanyCode,
         },        
     ],
-    SelectionFields : [
+    UI.SelectionFields : [
     GroupID_GroupID,
     CompanyCode
     ],
@@ -28,13 +33,18 @@ annotate service.GroupAssign with @(
     }
 );
 
+annotate service.GroupAssign with @title: '{i18n>GroupAssign}' {
+  GroupID     @title: '{i18n>GroupID}'        @Common.Text: GroupID.GroupName   @Common.TextArrangement: #TextFirst;
+  CompanyCode @title: '{i18n>CompanyCode}'  ;
+}
+
 annotate service.GroupAssign with @(
     UI.FieldGroup #GeneratedGroup1 : {
         $Type : 'UI.FieldGroupType',
         Data : [
             {
                 $Type : 'UI.DataField',
-                Label : 'GroupID_GroupID',
+                Label : 'GroupID',
                 Value : GroupID_GroupID,
             },
             {
@@ -53,6 +63,38 @@ annotate service.GroupAssign with @(
         },
     ]
 );
+
+annotate service.GroupAssign with {
+ 
+    GroupID @(Common : {
+ /*       ValueListWithFixedValues, */
+        ValueList : {
+            SearchSupported : true,
+            Label          : '{i18n>Group}',
+            CollectionPath : 'Groups',
+            Parameters      : [{
+                $Type             : 'Common.ValueListParameterInOut',
+                LocalDataProperty : GroupID_GroupID,
+                ValueListProperty : 'GroupID'
+            }, 
+            {
+                $Type             : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'GroupName'
+            }
+            ]
+        }
+    });
+
+/*
+    ![GroupID.GroupName] @(Common : {
+        ValueListWithFixedValues,
+        ValueList : {
+            SearchSupported : true,
+            Label          : '{i18n>GroupName}',
+            CollectionPath : 'Groups',
+        }
+    }); */
+};
 
 annotate service.Groups with @(
     UI.LineItem : [
@@ -116,8 +158,18 @@ annotate service.Groups with @(
             Label : 'INTFrequency',
             Value : INTFrequency,
         },
+        {
+            $Type : 'UI.DataField',
+            Label : 'CreatedAt',
+            Value : createdAt,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'CreatedBy',
+            Value : createdBy,
+        },
     ],
-    SelectionFields : [
+    UI.SelectionFields : [
     GroupID,
     GroupName,
     INTFlag
@@ -247,11 +299,21 @@ annotate service.DailySchedule with @(
             Label : 'Reportable',
             Value : Reportable,
         },
+        {
+            $Type : 'UI.DataField',
+            Label : 'CreatedAt',
+            Value : createdAt,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'CreatedBy',
+            Value : createdBy,
+        },
     ],
-    SelectionFields : [
-    GroupID,
-    GroupName,
-    INTFlag
+    UI.SelectionFields : [
+    GroupID_GroupID,
+    GroupID.GroupName,
+    SnapshotDate
     ],
     Capabilities.InsertRestrictions : {
     Insertable : true,
@@ -377,11 +439,32 @@ annotate service.SnapshotHeader with @(
             Label : 'Retain',
             Value : Retain,
         },
+        {
+            $Type : 'UI.DataField',
+            Label : 'CreatedAt',
+            Value : createdAt,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'CreatedBy',
+            Value : createdBy,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'ModifiedAt',
+            Value : modifiedAt,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'modifiedBy',
+            Value : modifiedBy,
+        },
     ],
-    SelectionFields : [
-    GroupID,
-    GroupName,
-    INTFlag
+    UI.SelectionFields : [
+    GroupID_GroupID,
+    GroupID.GroupName,
+    Snapshot_Date,
+    RunType_ID
     ],
     Capabilities.InsertRestrictions : {
     Insertable : true,
@@ -488,10 +571,8 @@ annotate service.Settings with @(
             Value : SettingValue,
         },        
     ],
-    SelectionFields : [
-    GroupID,
-    GroupName,
-    INTFlag
+    UI.SelectionFields : [
+    SettingName
     ],
     Capabilities.InsertRestrictions : {
     Insertable : true,

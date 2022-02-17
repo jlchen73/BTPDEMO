@@ -471,9 +471,23 @@
           "Value": {
             "=": "INTFrequency"
           }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CreatedAt",
+          "Value": {
+            "=": "createdAt"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CreatedBy",
+          "Value": {
+            "=": "createdBy"
+          }
         }
       ],
-      "@SelectionFields": [
+      "@UI.SelectionFields": [
         {
           "=": "GroupID"
         },
@@ -700,7 +714,14 @@
           "$Type": "UI.DataField",
           "Label": "GroupID",
           "Value": {
-            "=": "GroupID_GroupID"
+            "=": "GroupID.GroupID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "GroupName",
+          "Value": {
+            "=": "GroupID.GroupName"
           }
         },
         {
@@ -711,7 +732,7 @@
           }
         }
       ],
-      "@SelectionFields": [
+      "@UI.SelectionFields": [
         {
           "=": "GroupID_GroupID"
         },
@@ -719,11 +740,12 @@
           "=": "CompanyCode"
         }
       ],
+      "@title": "{i18n>GroupAssign}",
       "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
       "@UI.FieldGroup#GeneratedGroup1.Data": [
         {
           "$Type": "UI.DataField",
-          "Label": "GroupID_GroupID",
+          "Label": "GroupID",
           "Value": {
             "=": "GroupID_GroupID"
           }
@@ -753,6 +775,29 @@
       },
       "elements": {
         "GroupID": {
+          "@title": "{i18n>GroupID}",
+          "@Common.Text": {
+            "=": "GroupID.GroupName"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextFirst"
+          },
+          "@Common.ValueList.SearchSupported": true,
+          "@Common.ValueList.Label": "{i18n>Group}",
+          "@Common.ValueList.CollectionPath": "Groups",
+          "@Common.ValueList.Parameters": [
+            {
+              "$Type": "Common.ValueListParameterInOut",
+              "LocalDataProperty": {
+                "=": "GroupID_GroupID"
+              },
+              "ValueListProperty": "GroupID"
+            },
+            {
+              "$Type": "Common.ValueListParameterDisplayOnly",
+              "ValueListProperty": "GroupName"
+            }
+          ],
           "key": true,
           "type": "cds.Association",
           "target": "CatalogService.Groups",
@@ -765,6 +810,7 @@
           ]
         },
         "CompanyCode": {
+          "@title": "{i18n>CompanyCode}",
           "key": true,
           "type": "cds.String",
           "length": 4
@@ -825,17 +871,31 @@
           "Value": {
             "=": "Reportable"
           }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CreatedAt",
+          "Value": {
+            "=": "createdAt"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CreatedBy",
+          "Value": {
+            "=": "createdBy"
+          }
         }
       ],
-      "@SelectionFields": [
+      "@UI.SelectionFields": [
         {
-          "=": "GroupID"
+          "=": "GroupID_GroupID"
         },
         {
-          "=": "GroupName"
+          "=": "GroupID.GroupName"
         },
         {
-          "=": "INTFlag"
+          "=": "SnapshotDate"
         }
       ],
       "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
@@ -1090,17 +1150,48 @@
           "Value": {
             "=": "Retain"
           }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CreatedAt",
+          "Value": {
+            "=": "createdAt"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "CreatedBy",
+          "Value": {
+            "=": "createdBy"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "ModifiedAt",
+          "Value": {
+            "=": "modifiedAt"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "modifiedBy",
+          "Value": {
+            "=": "modifiedBy"
+          }
         }
       ],
-      "@SelectionFields": [
+      "@UI.SelectionFields": [
         {
-          "=": "GroupID"
+          "=": "GroupID_GroupID"
         },
         {
-          "=": "GroupName"
+          "=": "GroupID.GroupName"
         },
         {
-          "=": "INTFlag"
+          "=": "Snapshot_Date"
+        },
+        {
+          "=": "RunType_ID"
         }
       ],
       "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
@@ -1345,15 +1436,9 @@
           }
         }
       ],
-      "@SelectionFields": [
+      "@UI.SelectionFields": [
         {
-          "=": "GroupID"
-        },
-        {
-          "=": "GroupName"
-        },
-        {
-          "=": "INTFlag"
+          "=": "SettingName"
         }
       ],
       "@UI.FieldGroup#GeneratedGroup1.$Type": "UI.FieldGroupType",
@@ -1956,6 +2041,19 @@
       }
     }
   },
+  "extensions": [
+    {
+      "annotate": "service.GroupAssign",
+      "@UI.SelectionFields": [
+        {
+          "=": "GroupID.GroupID"
+        },
+        {
+          "=": "CompanyCode"
+        }
+      ]
+    }
+  ],
   "meta": {
     "creator": "CDS Compiler v2.11.4",
     "flavor": "inferred"
